@@ -1,0 +1,17 @@
+--Manual - Lifecycle - Name 
+
+SELECT "PropertyName", "Value"
+FROM "PropertyValue" as a1
+where a1."AssetId" in (
+						SELECT  
+								a1."AssetId" 
+						FROM "PropertyValue" as a1 
+						where a1."PropertyName"::text collate "C" in ('Manual - Lifecycle - Name')
+						--and a1."Value"#>>'{}' ilike '%Siemens%'
+						LIMIT 1
+						)
+--AND  a1."PropertyName"::text collate "C" ilike 'ADI - Hardware - Model'
+GROUP BY "PropertyName", "Value"
+order by 1;
+
+
