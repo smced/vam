@@ -1,0 +1,58 @@
+drop   table assets;
+CREATE temp TABLE assets AS (
+SELECT  DISTINCT
+      a1."AssetId" as assetid
+FROM "PropertyValue" as a1 
+ORDER BY a1."AssetId"
+); 
+alter table assets  add ADI_IP character (75);
+UPDATE assets
+SET ADI_IP = a1."Value"#>>'{}'
+FROM  "PropertyValue" as a1 
+WHERE assets.AssetId= a1."AssetId"
+and a1."PropertyName" IN ('ADI - Client - Connection String');
+
+ alter table assets  add BES_IP character (40);
+UPDATE assets
+SET BES_IP = a1."Value"->'display'
+FROM  "PropertyValue" as a1 
+WHERE assets.AssetId= a1."AssetId"
+and a1."PropertyName" IN   ('BES - Network - IP Addresses');
+
+
+
+alter table assets  add NET_IP character (40);
+UPDATE assets
+SET NET_IP = a1."Value"->'display'
+FROM  "PropertyValue" as a1 
+WHERE assets.AssetId= a1."AssetId"
+and a1."PropertyName" IN   ('Network - IP Addresses');
+
+UPDATE assets
+SET NET_IP = REPLACE(NET_IP, '"', '');
+
+
+alter table assets  add Device_Name2 character (40);
+UPDATE assets
+SET Device_Name2 = a1."Value"#>>'{}'
+FROM  "PropertyValue" as a1 
+WHERE assets.AssetId= a1."AssetId"
+and a1."PropertyName" IN   ('BES - Network - Hostname');
+
+ 
+ 
+alter table assets  add Hardware_Model character (40);
+UPDATE assets
+SET Hardware_Model = a1."Value"#>>'{}'
+FROM  "PropertyValue" as a1 
+WHERE assets.AssetId= a1."AssetId"
+and a1."PropertyName" IN   ('Hardware - Model');
+
+select 
+	a.net_ip
+	,a.hardware_model
+	,a.device_name2
+	,b.hardware_model
+from assets a inner join assets b on a.device_name2 = b.hardware_model;
+
+
