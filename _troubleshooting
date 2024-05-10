@@ -1,0 +1,5 @@
+{"Name": null, "description": null, "mac_address": "18:4C:08:F8:BF:76", "ip_addresses": ["192.168.1.21"], "lldp_identifiers": ["18:4C:08:F8:BF:76"]}
+
+select b1."Value"-->'Name'
+from "PropertyValueContent" as b1
+where b1."ID" = '87a4da58-a4d3-49f4-8c3e-e1a7deb21add';
