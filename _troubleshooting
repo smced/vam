@@ -3,3 +3,13 @@
 select b1."Value"-->'Name'
 from "PropertyValueContent" as b1
 where b1."ID" = '87a4da58-a4d3-49f4-8c3e-e1a7deb21add';
+
+
+SELECT b1."Value"->>'mac_address' as mac_address
+FROM "PropertyValueContent" as b1
+WHERE b1."ID" = '87a4da58-a4d3-49f4-8c3e-e1a7deb21add';
+
+
+SELECT jsonb_extract_path_text(b1."Value", 'mac_address') as mac_address
+FROM "PropertyValueContent" as b1
+WHERE b1."ID" = '87a4da58-a4d3-49f4-8c3e-e1a7deb21add';
