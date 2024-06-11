@@ -93,7 +93,9 @@
       "from": {"data": "tree"},
       "encode": {
         "enter": {
-          "text": {"signal": "datum.id + (datum.mac ? ' (MAC: ' + datum.mac + ')' : '')"},
+          "text": {
+            "signal": "datum.id + (datum.mac ? ' (MAC: ' + datum.mac + ')' : '')"
+          },
           "fontSize": {"value": 9},
           "baseline": {"value": "middle"}
         },
