@@ -1,8 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "description": "A hierarchical tree visualization with notes.",
+  "description": "A simple hierarchical tree layout.",
   "padding": 5,
-  "autosize": "none",
 
   "signals": [
     {"name": "labels", "value": true, "bind": {"input": "checkbox"}}
@@ -24,7 +23,7 @@
         {"id": "192.168.1.221", "parent": "10.1.51.116"},
         {"id": "192.168.1.50", "parent": "10.1.51.116"},
         {"id": "192.168.1.52", "parent": "10.1.51.116"},
-        {"id": "10.1.51.116", "parent": "TEST", "mac": "00:1A:2B:3C:4D:5E"},
+        {"id": "10.1.51.116", "parent": "TEST"},
         {"id": "192.168.1.12", "parent": "10.1.51.116"},
         {"id": "192.168.1.51", "parent": "10.1.51.116"},
         {"id": "192.168.1.11", "parent": "10.1.51.116"},
@@ -93,9 +92,7 @@
       "from": {"data": "tree"},
       "encode": {
         "enter": {
-          "text": {
-            "signal": "datum.id + (datum.mac ? ' (MAC: ' + datum.mac + ')' : '')"
-          },
+          "text": {"field": "id"},
           "fontSize": {"value": 9},
           "baseline": {"value": "middle"}
         },
