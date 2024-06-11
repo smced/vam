@@ -1,1 +1,44 @@
 [ansible_host: "10.2.228.10", cip_route_path: "1/2/2/10.3.228.26"]
+
+
+
+PUT /your-index/_mapping
+{
+  "runtime": {
+    "ansible_host": {
+      "type": "keyword",
+      "script": {
+        "source": """
+        def match = /ansible_host: "([^"]+)"/.matcher(doc['source_field'].value);
+        if (match.find()) {
+          emit(match.group(1));
+        }
+        """
+      }
+    },
+    "cip_route_path": {
+      "type": "keyword",
+      "script": {
+        "source": """
+        def match = /cip_route_path: "([^"]+)"/.matcher(doc['source_field'].value);
+        if (match.find()) {
+          emit(match.group(1));
+        }
+        """
+      }
+    }
+  }
+}
+
+GET /your-index/_search
+{
+  "_source": ["ansible_host", "cip_route_path"],
+  "query": {
+    "bool": {
+      "must": [
+        {"term": {"ansible_host": "10.2.228.10"}},
+        {"term": {"cip_route_path": "1/2/2/10.3.228.26"}}
+      ]
+    }
+  }
+}
