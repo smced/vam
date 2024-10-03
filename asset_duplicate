@@ -1,0 +1,15 @@
+SELECT
+    a1."AssetId",
+    a1."PropertyName",
+    a1."Value",
+    COUNT(*) AS duplicate_count
+FROM
+    "PropertyValue" AS a1
+WHERE
+    a1."PropertyName" = 'Hardware - Serial Number'
+GROUP BY
+    a1."AssetId", a1."PropertyName", a1."Value"
+HAVING
+    COUNT(*) > 1
+ORDER BY
+    duplicate_count DESC;
