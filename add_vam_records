@@ -1,0 +1,95 @@
+CREATE OR REPLACE FUNCTION f_add_adi_properties(p_asset_id UUID, p_property_name TEXT, p_hard_value TEXT DEFAULT NULL)
+RETURNS VOID AS $$
+DECLARE
+    v_value TEXT;
+    v_reference TEXT := NULL;
+    v_created_at TIMESTAMPTZ := NOW();
+    v_created_by_id UUID := '10743414-ca57-46b5-90e9-d9dcca968a27';
+    v_updated_at TIMESTAMPTZ := NULL;
+    v_updated_by_id UUID := NULL;
+    v_order INT := 0;
+    v_metadata JSONB;
+BEGIN
+    -- Conditional check: If p_property_name is 'ADI - Configuration - Host', retrieve value from the PropertyValue table
+    IF p_property_name = 'ADI - Configuration - Host' THEN
+        -- Retrieve the Value from the PropertyValue table for the given AssetId and PropertyName
+        SELECT trim(both '"' from a1."Value"::text)
+        INTO v_value
+        FROM "PropertyValue" as a1
+        WHERE "AssetId" = p_asset_id
+        AND a1."PropertyName" = 'Convert - ADI Connection String';
+
+    ELSE
+        -- If p_property_name is not 'ADI - Configuration - Host', use p_hard_value
+        v_value := p_hard_value;
+    END IF;
+    
+    -- Generate metadata using the selected value (v_value)
+    v_metadata := build_metadata(v_value);
+    
+    -- Insert into PropertyValue table
+    INSERT INTO "PropertyValue" (
+        "ID", 
+        "AssetId", 
+        "PropertyName", 
+        "Value", 
+        "Reference", 
+        "CreatedAt", 
+        "CreatedById", 
+        "UpdatedAt", 
+        "UpdatedById", 
+        "Order", 
+        "Metadata"
+    )
+    VALUES (
+        gen_random_uuid(),          -- Generate a new UUID for ID
+        p_asset_id,                 -- Asset ID from the input parameter
+        p_property_name,            -- Dynamic property name from input parameter
+        to_json(v_value),           -- Retrieved or hardcoded value (v_value) as JSON
+        v_reference,                -- Reference is NULL
+        v_created_at,               -- Created timestamp
+        v_created_by_id,            -- Created by ID
+        v_updated_at,               -- Updated timestamp (NULL)
+        v_updated_by_id,            -- Updated by ID (NULL)
+        v_order,                    -- Order is 0
+        v_metadata                  -- Metadata generated from build_metadata
+    );
+END;
+$$ LANGUAGE plpgsql;
+
+--SELECT f_add_adi_properties('406ce076-a76f-4b92-bcca-9728decf1962', 'ADI - Configuration - Driver Name', 'ge.mark_vie');
+--SELECT f_add_adi_properties('406ce076-a76f-4b92-bcca-9728decf1962', 'ADI - Configuration - Run Point', '04f2645b-0128-4037-975b-0d1a5cb7eb9b');
+
+CREATE OR REPLACE FUNCTION f_multi_add(p_assetID UUID)
+RETURNS VOID AS $$
+BEGIN
+    -- Call f_add_adi_properties with different property names and values
+    PERFORM f_add_adi_properties(p_assetID, 'ADI - Configuration - Host');
+    PERFORM f_add_adi_properties(p_assetID, 'ADI - Configuration - Driver Name', 'ge.mark_vie');
+    PERFORM f_add_adi_properties(p_assetID, 'ADI - Configuration - Run Point', '04f2645b-0128-4037-975b-0d1a5cb7eb9b');
+END;
+$$ LANGUAGE plpgsql;
+
+--SELECT f_multi_add('6e1afd72-e396-4ebc-b92a-920fb7ffe478');
+
+
+CREATE OR REPLACE FUNCTION run_f_multi_add_for_assets()
+RETURNS VOID AS $$
+DECLARE
+    v_asset_id UUID;
+BEGIN
+    -- Loop through each record in the assets table that matches the condition
+    FOR v_asset_id IN
+        SELECT assetid 
+        FROM assets 
+        WHERE vendor LIKE 'Int%'
+        AND driver IS NULL
+    LOOP
+        -- Call f_multi_add for each assetid
+        PERFORM f_multi_add(v_asset_id);
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+
+--SELECT run_f_multi_add_for_assets();
