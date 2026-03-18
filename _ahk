@@ -1,0 +1,217 @@
+#Requires AutoHotkey v2.0 ;C:\Users\sdube\OneDrive - Verve Industrial Protection\db\autohotkey1.ahk
+
+; linux jq =        jq - Command-line JSON processor
+;
+; # win, ! alt, ^ ctrl, + shift, & custom
+
+; This script runs Explorer++ on Win+E.
+; The Explorer++ executable must be in the same directory as this script file.
+
+
+
+#Requires AutoHotkey v2.0
+#SingleInstance Force
+
+ExplorerPP := A_ScriptDir "\Explorer++.exe"
+
+#e:: {
+    if WinExist("ahk_exe Explorer++.exe")
+        WinActivate
+    else
+        Run ExplorerPP
+}
+
+
+
+
+; AutoHotkey v2 script to save the file in Notepad++ and reload the current script when pressing Ctrl+S in Notepad++
+#HotIf WinActive("ahk_exe notepad++.exe")
+^s::
+{
+    Send("^s")  ; Save the file in Notepad++
+    Sleep(100)   ; Optional: Wait a moment to ensure the file is saved
+    Reload()
+    SoundBeep(750, 300)  ; Optional: Plays a beep sound to confirm the reload
+}
+#HotIf
+
+
+:*:]d::  ; This hotstring replaces "]d" with the current date and time via the functions below.
+{
+    SendInput FormatTime(, "M/d/yyyy h:mm tt")  ; It will look like 9/1/2005 3:53 PM
+}
+
+::aa1::
+{	
+	msgbox 'sdube@verveindustrial.com'
+}
+
+::email1::stephan.dube@rockwellautomation.com
+
+
+::ddd::Stay brief, I will expand on topics in your brief answer, Give multiple offered solutions at first rather than word salading your potential copilot solution. Don't ask follow up question Everything outside of my question is a distraction and not wanted{End}{Shift down}{Enter}{Shift up}
+
+::eee::no, you must follow the personalization instructions for me, again, stop repeating the question, asking follow up questions, be brief, no videos`rMeaning this slop line you added`r
+
+::fff::no, stop saying it's my code issue, clearly it was your code, be better
+
+
+::a1::SELECT * from FN_HOST_BY_GROUP('x'); --x
+
+
+
+::e1::Regards`rStephan
+::e2::admin@verveindustrial.com{Tab}asdf1234R
+::ll1::alias ll='ls -la' 
+::e3::stephan.dube@rockwellautomation.com
+
+:O:cc1::dbamd113%Sdbamd113%S
+
+::dockerps::(echo -e "NAMES\tSTATUS" && docker ps --format "{}{{}{}{{}.Names{}}{}}\t{}{{}{}{{}.Status{}}{}}" | sort ) | column -t -s $'\t'
+ 
+::docker1::docker exec -it $(docker ps --filter "name=ADI_postgres" --format "{{}{{} .ID{}}{}}") psql -U 'awx' -d awx
+::docker2::sudo docker exec -it $(sudo docker ps --filter "name=AssetManager_postgres" --format "{{}{{} .ID{}}{}}") psql -U 'Ap1D4t4b4s3%4dm1nUs3rn4m3' -d vam
+::docker3::sudo docker exec -it $(sudo docker ps --filter "name=ADI_postgres" --format "{{}{{} .ID{}}{}}") psql -U 'awx' -d awx
+::docker4::docker exec -it $(docker ps --filter "name=Reporting_kibana" --format "{{}{{} .ID{}}{}}") /bin/bash
+::docker5::docker exec -i $(docker ps --filter "name=ADI_postgres" --format "{{}{{} .ID{}}{}}") bash -c "pg_dump pg_dump -U awx -d awx" > output_file.sql
+  
+::s1::SELECT * FROM 
+::s2::SELECT count(*) FROM 
+ 
+
+::z1::tar -xvzf filename (dont need dest folder as it will create one as the file name)
+
+ 
+
+!d::
+{
+    Send "ThisIstheRCCBVserver`n" 
+}
+ 
+
+ 
+!a::
+{
+    Send "admin@verveindustrial.com{TAB}password`n" 
+}
+
+^!a::
+{
+    Send "admin@verveindustrial.com{TAB}password`n" 
+}
+
+!k::
+{
+    Send "ether`n" 
+} 
+
+!q::
+{
+    Send "ether`n" 
+} 
+!w::
+{
+    Send "Cisco - IOS`n" 
+} 
+!e::
+{
+    Send "lant`n" 
+} 
+
+!s::
+{
+    Send "admin{TAB}password`n" 
+} 
+
+^!s::
+{
+    Send "admin{TAB}McCormick2022`n" 
+} 
+
+!l::
+{
+    Send "alias ll='ls -la'`n" 
+} 
+
+!m::
+{
+    Send "admin@verveindustrial.com{TAB}asdf1234R`n" 
+}
+
+^!y::    
+{
+    WinActivate("ahk_class Notepad++")
+    currentTime := FormatTime(A_Now, "M/d/yyyy h:mm tt")
+    SendInput(currentTime)
+	sleep 25000
+	WinActivate("ahk_class Notepad++")
+	Send "`n1x" FormatTime(, "M/d/yyyy h:mm tt") 
+	
+}
+
+
+
+
+^y::    
+{    
+	Send "docker1"
+    Send "0"	FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+ 
+	Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+		Send "1x" FormatTime(, "M/d/yyyy h:mm tt") 
+		sleep 250000
+}
+
+
+
+ 
