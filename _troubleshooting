@@ -16,3 +16,4 @@ WHERE b1."ID" = '87a4da58-a4d3-49f4-8c3e-e1a7deb21add';
 
 
 sudo docker container exec $(sudo docker container ls --filter 'label=com.docker.swarm.service.name=AssetManager_postgres' --quiet --no-trunc) psql --no-psqlrc --dbname agent --username 'Ap1D4t4b4s3%4dm1nUs3rn4m3' --no-password --command="SELECT id, issue_timestamp, directive, inputs FROM commands;"
+sudo docker container exec $(sudo docker container ls --filter 'label=com.docker.swarm.service.name=AssetManager_postgres' --quiet --no-trunc) psql --no-psqlrc --dbname agent --username 'Ap1D4t4b4s3%4dm1nUs3rn4m3' --no-password --command="SELECT id, issue_timestamp, directive, inputs FROM commands;"
